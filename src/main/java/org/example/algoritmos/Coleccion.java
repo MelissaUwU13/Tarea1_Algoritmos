@@ -19,7 +19,7 @@ public class Coleccion {
 
     //GETTERS
     public ArrayList<Instrumento> getColeccion() {
-        return getColeccion();
+        return coleccion;
     }
 
     //SETTERS
@@ -36,53 +36,69 @@ public class Coleccion {
         coleccion.add(instrumento);
     }
 
-
-    //CONSULTASSSSSS
+    //CONSULTAS
 
     //CONSULTA - recibe el autor y regresa una cadena (los instrumentos)
     public ArrayList<Instrumento> consultarPorAutor(String autor) {
         ArrayList<Instrumento> instrumentos = new ArrayList<>();
-
-        //REVISAR
-        //coleccion.stream().filter(instrumento -> instrumento.getAutores().toLowerCase.equals(autor.toLowerCase()).forEach(ArrayAutores::add)
-          //      return arrayAutores;
-        return null;
+        return coleccion.stream()
+                .filter(i -> i.getAutores().toLowerCase().contains(autor.toLowerCase()))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     //CONSULTA - recibe el tipo y regresa una cadena (los instrumentos)
-    public ArrayList<Instrumento> consultarPorTipo(boolean Tipo) {
-      //  return(ArrayList<Instrumento>) coleccion.stream().filter(i -> i.getTipo==tipo){.collect(Collectors.toList())}
-        return null; //TEMPORAL
+    public ArrayList<Instrumento> consultarPorTipo(boolean tipo) {
+        return coleccion.stream()
+                .filter(i -> i.getTipo() == tipo)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     public ArrayList<Instrumento> consultarPorClave(int clave) {
-        return null;
+        return coleccion.stream()
+                .filter(i -> i.getClave() == clave)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     public ArrayList<Instrumento> consultarPorForma(Instrumento.Forma forma) {
-        return null;
+        return coleccion.stream()
+                .filter(i -> i.getForma() == forma)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     public ArrayList<Instrumento> consultarPorCondicion(Instrumento.Condicion condicion) {
-        return null;
+        return coleccion.stream()
+                .filter(i -> i.getCondicion() == condicion)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     public ArrayList<Instrumento> consultarPorValidez(boolean validez){
-        return null;
+        return coleccion.stream()
+                .filter(i -> i.isValidez() == validez)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     public ArrayList<Instrumento> consultarPorConfiabilidad(boolean confianza){
-        return null;
+        return coleccion.stream()
+                .filter(i -> i.isConfianza() == confianza)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    //UNA MAS Y YA
-
     public ArrayList<Instrumento> consultarPorCita(String cita) {
-        return null;
+        return coleccion.stream()
+                .filter(i -> i.getCitaDeEvaluacion().toLowerCase().contains(cita.toLowerCase()))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    //Realizar una consulta extra, mostrar los instrumentos de acuerdo a la condición y si están validados
+
+    public ArrayList<Instrumento> consultarPorCondicionYValidez(Instrumento.Condicion condicion) {
+        return coleccion.stream()
+                .filter(i -> i.getCondicion() == condicion && i.isValidez())
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     //ELIMINAR - elimina por clave
-    public void eliminar(int Clave) {
-        coleccion.remove(Clave);
+    public boolean eliminar(int Clave) {
+        return coleccion.removeIf(i -> i.getClave() == Clave);
     }
 }
