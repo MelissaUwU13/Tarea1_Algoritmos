@@ -65,7 +65,7 @@ public class Instrumento {
                 ", \n condicion=" + condicion +
                 ", \n forma=" + forma +
                 ", \n autor(es)='" + autores + '\'' +
-                ", \n tipo=" + tipo +
+                ", \n tipo=" + (tipo ? "identificar" : "manejar") +
                 ", \n confiabilidad=" + (confianza ? "Sí" : "No") +
                 ", \n validez=" + (validez ? "Sí" : "No") +
                 ", \n cita='" + citaDeEvaluacion + '\'' +

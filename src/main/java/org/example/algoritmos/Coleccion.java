@@ -83,11 +83,6 @@ public class Coleccion {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public ArrayList<Instrumento> consultarPorCita(String cita) {
-        return coleccion.stream()
-                .filter(i -> i.getCitaDeEvaluacion().toLowerCase().contains(cita.toLowerCase()))
-                .collect(Collectors.toCollection(ArrayList::new));
-    }
 
     //Realizar una consulta extra, mostrar los instrumentos de acuerdo a la condición y si están validados
     public ArrayList<Instrumento> consultarPorCondicionYValidez(Instrumento.Condicion condicion) {
@@ -138,8 +133,8 @@ public class Coleccion {
     }
 
 
-    public void actualizarArchivo(){
-        try(PrintWriter writer= new PrintWriter("src/main/resources/datos.txt")){
+    public void actualizarArchivo(String nombreArchivo) {
+        try(PrintWriter writer= new PrintWriter(nombreArchivo)) {
             for (Instrumento i: coleccion){
                 String linea= String.format("%d,%s,%s,%s,%s,%s,%b,%b,%s", i.getClave(), i.getNombre(), i.getCondicion(), i.getForma(), i.getTipo(), i.getAutores(), i.isConfianza(), i.isValidez(), i.getCitaDeEvaluacion()
                 );

@@ -1,0 +1,3 @@
+1,libros,ESTRES,TEST,true,melissaa,true,true,es un libro interesante
+2,david,ANSIEDAD,ESCALA,true,david,false,false,es una prueba
+3,examen,AMBAS,CUESTIONARIO,true,artemio,true,true,es un examen
