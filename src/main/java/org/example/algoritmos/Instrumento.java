@@ -34,9 +34,6 @@ public class Instrumento {
         this.citaDeEvaluacion = citaDeEvaluacion;
     }
 
-    public Instrumento(){}
-
-
     //GETTERS
     public String getNombre(){return nombre;}
     public Condicion getCondicion(){return condicion;}
@@ -65,10 +62,10 @@ public class Instrumento {
         return "Instrumento {" +
                 "clave=" + clave +
                 ", \n nombre='" + nombre + '\'' +
-                ", \n tipo=" + tipo +
                 ", \n condicion=" + condicion +
                 ", \n forma=" + forma +
                 ", \n autor(es)='" + autores + '\'' +
+                ", \n tipo=" + tipo +
                 ", \n confiabilidad=" + (confianza ? "Sí" : "No") +
                 ", \n validez=" + (validez ? "Sí" : "No") +
                 ", \n cita='" + citaDeEvaluacion + '\'' +

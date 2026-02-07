@@ -1,7 +1,8 @@
 package org.example.algoritmos;
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.stream.Collectors;
+
 
 //EN ESTA CLASE SE HACEN LAS COLECCIONES Y METODOS, MAS NO IMPRIME NADA!!
 public class Coleccion {
@@ -26,7 +27,6 @@ public class Coleccion {
     public void setColeccion(ArrayList<Instrumento> coleccion) {
         this.coleccion = coleccion;
     }
-
 
 
 //OTROS METODOS
@@ -90,7 +90,6 @@ public class Coleccion {
     }
 
     //Realizar una consulta extra, mostrar los instrumentos de acuerdo a la condición y si están validados
-
     public ArrayList<Instrumento> consultarPorCondicionYValidez(Instrumento.Condicion condicion) {
         return coleccion.stream()
                 .filter(i -> i.getCondicion() == condicion && i.isValidez())
@@ -100,5 +99,54 @@ public class Coleccion {
     //ELIMINAR - elimina por clave
     public boolean eliminar(int Clave) {
         return coleccion.removeIf(i -> i.getClave() == Clave);
+    }
+
+
+    //ARCHIVOS DE TEXTO!!
+
+
+    public void cargarArchivo(String nombreArchivo) {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(nombreArchivo));
+            String linea;
+
+            while ((linea = br.readLine()) != null) {
+                String[] datos = linea.split(",");
+
+                int clave = Integer.parseInt(datos[0]);
+                String nombre = datos[1];
+                Instrumento.Condicion condicion = Instrumento.Condicion.valueOf(datos[2]);
+                Instrumento.Forma forma = Instrumento.Forma.valueOf(datos[3]);
+                boolean tipo = Boolean.parseBoolean(datos[4]);
+                String autores = datos[5];
+                boolean confianza = Boolean.parseBoolean(datos[6]);
+                boolean validez = Boolean.parseBoolean(datos[7]);
+                String cita = datos[8];
+
+                Instrumento i = new Instrumento(
+                        clave, nombre, condicion, forma,
+                        tipo, autores, confianza, validez, cita
+                );
+
+                coleccion.add(i);
+            }
+
+            br.close();
+        } catch (Exception e) {
+            System.out.println("Error al cargar archivo");
+        }
+    }
+
+
+    public void actualizarArchivo(){
+        try(PrintWriter writer= new PrintWriter("src/main/resources/datos.txt")){
+            for (Instrumento i: coleccion){
+                String linea= String.format("%d,%s,%s,%s,%s,%s,%b,%b,%s", i.getClave(), i.getNombre(), i.getCondicion(), i.getForma(), i.getTipo(), i.getAutores(), i.isConfianza(), i.isValidez(), i.getCitaDeEvaluacion()
+                );
+                writer.println(linea);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
